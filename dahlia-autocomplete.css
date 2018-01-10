@@ -1,0 +1,170 @@
+section {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+section ~ section {
+	border-top: 1px solid #CCC;
+	margin-top: 20px;
+}
+
+.preview-styling {
+	min-height: 10em;
+	background: #EFEFEF;
+	padding: 1em;
+	margin-top: 10px;
+}
+
+/****************************************************************************************************\
+                                                                      | Autocomplete results
+\****************************************************************************************************/
+
+/* .autocomplete.container could be an ul or a div (containing a table) */
+.autocomplete.container {
+	position: absolute;
+	z-index: 9999;
+	max-height: 8em;
+	overflow-y: auto;
+
+	background: white;
+	margin-top: .5em;
+	box-shadow: 2px 2px 4px rgba(0,0,0,.25);
+	border-bottom: 1px solid;
+}
+
+/* .autocomplete.results could be an ul or a table */
+.autocomplete.results {
+	border: 1px solid;
+}
+
+.autocomplete b {
+	color: #1f8dd6;
+}
+
+.autocomplete .selected,
+ul.autocomplete li:hover,
+table.autocomplete tbody tr:hover {
+	background: #f0f0f0;
+}
+
+ul.autocomplete {
+	padding-left: 0;
+	list-style: none;
+}
+
+ul.autocomplete li + li {
+	border-top: 1px solid;
+}
+
+table.autocomplete {
+	border-collapse: collapse;
+}
+
+table.autocomplete td,
+table.autocomplete th {
+	border: 1px solid;
+}
+
+/****************************************************************************************************\
+                                                                      | Autocomplete indicators
+\****************************************************************************************************/
+
+.status-indicator {
+	width: 1.15em;
+	height: 1.15em;
+	margin-top: .15em;
+	margin-left: -1.25em;
+	position: absolute;
+}
+
+.status-indicator:before {
+	text-align: center;
+	line-height: 1.15;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.status-indicator[data-status="error"] {
+	background: red;
+}
+.status-indicator[data-status="error"]:before {
+	content: '\26a0';
+	color: white;
+}
+
+.status-indicator[data-status="no-results"]:before {
+	content: '\2718';
+	color: red;
+}
+
+.status-indicator[data-status="loading2"] {
+	-webkit-animation: simple-spinner 1.2s infinite linear;
+	animation: simple-spinner 1.2s infinite linear;
+}
+.status-indicator[data-status="loading2"]:before {
+	content: '\2732'; /* asterisk */
+	color: blue;
+	display: block;
+}
+
+@-webkit-keyframes simple-spinner {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+@keyframes simple-spinner {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(360deg);
+		transform: rotate(360deg);
+	}
+}
+
+.status-indicator[data-status="loading"] {
+	-webkit-animation: hourglass-spinner 1.2s infinite linear;
+	animation: hourglass-spinner 1.2s infinite linear;
+}
+.status-indicator[data-status="loading"]:before {
+	content: '\231B'; /* hourglass */
+	color: blue;
+}
+
+@-webkit-keyframes hourglass-spinner {
+	0%,49% {
+		-webkit-transform: scale(1, -1);
+		transform: scale(1, -1);
+	}
+	50%, 75% {
+		-webkit-transform: scale(1, 1);
+		transform: scale(1, 1);
+	}
+	99% {
+		-webkit-transform: rotate(-180deg) scale(1, 1);
+		transform: rotate(-180deg) scale(1, 1);
+	}
+}
+@keyframes hourglass-spinner {
+	0%,49% {
+		-webkit-transform: scale(1, -1);
+		transform: scale(1, -1);
+	}
+	50%, 75% {
+		-webkit-transform: scale(1, 1);
+		transform: scale(1, 1);
+	}
+	99% {
+		-webkit-transform: rotate(-180deg) scale(1, 1);
+		transform: rotate(-180deg) scale(1, 1);
+	}
+}

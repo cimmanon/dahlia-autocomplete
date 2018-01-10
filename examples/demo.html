@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DahliaAutocomplete Demo</title>
+
+	<link rel="stylesheet" href="../dahlia-autocomplete.css" />
+</head>
+<body>
+
+<script src="../dahlia-autocomplete.js" type="text/javascript"></script>
+
+<section>
+	<h1>Initialization via <code>onFocus</code> Attribute</h1>
+
+	<p>This method of initialization is ideal for single element submissions, where only the target element is submitted to the server.  You can use it for multiple element submissions, but the event listers will only be attached to the target element.</p>
+
+	<h2>List display</h2>
+
+	<form id="form1">
+		<label>Name <input type="text" name="form1.name" data-autocomplete-input="name" onfocus="dahliaAutocomplete(this)" data-autocomplete-action="./json-numbers.js" /></label>
+	</form>
+
+	<h2>List display with object result</h2>
+
+	<form id="form2">
+		<label>Name <input type="text" name="form2.name" data-autocomplete-input="name" onfocus="dahliaAutocomplete(this, {'results': new AutocompleteSuggestionsList('name')})" data-autocomplete-action="./json-countries.js" /></label>
+	</form>
+
+	<h2>Table display</h2>
+
+	<form id="form3">
+		<label>Code <input type="text" name="form3.code" readonly tabindex="-1" /></label>
+		<label>Name <input type="text" name="form3.name" onfocus="dahliaAutocomplete(this,
+			{ 'inputs': {'form3.name': this, 'form3.provider_id': 5}
+			, 'outputs': {'iso2': document.getElementById('form3').elements['form3.code'] , 'name': document.getElementById('form3').elements['form3.name']}
+			, 'method': 'GET'
+			, 'minlength': 0
+			, 'results': new AutocompleteSuggestionsTable(['Code', 'Flag', 'Name'], function(row, keyword) {
+				var tr = this.tr.cloneNode(true);
+				var code = this.td.cloneNode(true);
+				code.innerHTML = row.iso2;
+				tr.appendChild(code);
+				var flag = this.td.cloneNode(true);
+				flag.innerHTML = '<img src=\'flags/' + row.iso2.toLowerCase() + '.png\' />';
+				tr.appendChild(flag);
+				var name = this.td.cloneNode(true);
+				name.innerHTML = this.highlightMatches(row.name, keyword);
+				tr.appendChild(name);
+				return tr;
+			})}
+			)" data-autocomplete-action="./json-countries.js"  /></label>
+	</form>
+</section>
+<!-- NOTE: this works, but I don't have a JSON file to serve right now -->
+<!--
+<section>
+	<h1>Initialization on container elements</h1>
+
+	<p>This method of initialization is more verbose, but is ideal for multiple element submissions because the event listeners are attached to a container element that, in theory, holds all of your submit elements.</p>
+
+	<h2>Affiliations test</h2>
+
+	<form id="form4">
+		<fieldset>
+			<legend>Hide disallowed values</legend>
+
+			<label><input type="radio" name="form4.toggle" value="2" checked id="toggle_on" /> Yes</label>
+			<label><input type="radio" name="form4.toggle" value="" id="toggle_off" /> No</label>
+		</fieldset>
+
+		<label>Type <select name="form4.type">
+			<option value="">All</option>
+			<option value="Clinic">Clinic</option>
+			<option value="Hospital">Hospital</option>
+		</select></label>
+
+		<label>Name <input type="text" name="form4.name" /></label>
+	</form>
+	<script type="text/javascript">
+		var form = document.getElementById('form4');
+		var target = form.elements['form4.name'];
+		dahliaAutocomplete(form,
+			{ 'inputs': {'form.keyword': target, 'form.provider_id': form.elements['form4.toggle'], 'form.type': form.elements['form4.type']}
+			, 'outputs': {'name': form.elements['form4.name']}
+			, 'method': 'POST'
+			, 'action': '/autocomplete/affiliations.json'
+			, 'target': form.elements['form4.name']
+			, 'results': new AutocompleteSuggestionsTable(['Provider ID', 'Provider Type', 'Name'], ['id', 'typ', 'name'])
+			});
+	</script>
+</section>
+-->
+<section>
+	<h1>Preview Default Styling</h1>
+
+	<h2>Status Indicators</h2>
+
+	<form>
+	<label>Error <br /><input type="text" name="error" readonly tabindex="-1" /><span class="status-indicator" data-status="error"></span></label><br />
+	<label>No results <br /><input type="text" name="no-results" readonly tabindex="-1" /><span class="status-indicator" data-status="no-results"></span></label><br />
+	<label>Loading <br /><input type="text" name="loading" readonly tabindex="-1" /><span class="status-indicator" data-status="loading"></span></label><br />
+	<label>Loading (alternate) <br /><input type="text" name="loading" readonly tabindex="-1" /><span class="status-indicator" data-status="loading2"></span></label>
+	</form>
+
+	<h2>Suggestions</h2>
+
+	<div class="preview-styling">
+		<input type="text" disabled />
+		<ul class="autocomplete container results">
+			<li>one</li>
+			<li>two</li>
+			<li>three</li>
+			<li>four</li>
+			<li>five</li>
+			<li>six</li>
+			<li>seven</li>
+			<li>eight</li>
+			<li>nine</li>
+			<li>ten</li>
+		</ul>
+	</div>
+
+	<div class="preview-styling">
+	<input type="text" disabled />
+		<div class="autocomplete container">
+			<table class="autocomplete results">
+				<thead>
+					<tr>
+						<th>Digit</th>
+						<th>Name</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>one</td>
+					</tr>
+
+					<tr>
+						<td>2</td>
+						<td>two</td>
+					</tr>
+
+					<tr>
+						<td>3</td>
+						<td>three</td>
+					</tr>
+
+					<tr>
+						<td>4</td>
+						<td>four</td>
+					</tr>
+
+					<tr>
+						<td>5</td>
+						<td>five</td>
+					</tr>
+
+					<tr>
+						<td>6</td>
+						<td>six</td>
+					</tr>
+
+					<tr>
+						<td>7</td>
+						<td>seven</td>
+					</tr>
+
+					<tr>
+						<td>8</td>
+						<td>eight</td>
+					</tr>
+
+					<tr>
+						<td>9</td>
+						<td>nine</td>
+					</tr>
+
+					<tr>
+						<td>10</td>
+						<td>ten</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</section>
+
+</body>
+</html>
