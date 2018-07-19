@@ -172,6 +172,7 @@ var dahliaAutocomplete = function() {
 		function focusHandler(e) {
 			if (isTextInput(e.target) && isDataElem(e.target)) {
 				if (e.target == config.target && !results.length) {
+					lastVal = e.target.value;
 					processForm(config.delay);
 				} else {
 					suggestions.show();
