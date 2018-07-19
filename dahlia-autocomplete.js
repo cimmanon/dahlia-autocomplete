@@ -51,6 +51,7 @@ var dahliaAutocomplete = function() {
 		}
 
 		var suggestions = config.results;
+		var lastSelection = config.target.defaultValue;
 
 		elem.addEventListener('focus', focusHandler, true);
 		elem.addEventListener('blur', blurHandler, true);
@@ -167,6 +168,7 @@ var dahliaAutocomplete = function() {
 				if (currentIndex >= 0) { unHighlightElement(suggestions.selectByIndex(currentIndex)); }
 				currentIndex = i;
 			}
+			lastSelection = config.target.value;
 		}
 
 		function focusHandler(e) {
@@ -222,8 +224,8 @@ var dahliaAutocomplete = function() {
 					}
 					e.preventDefault();
 					return false;
-				} else if (key == keyEsc && e.target.value != '') {
-					e.target.value = '';
+				} else if (key == keyEsc) {
+					e.target.value = lastSelection;
 					results = [];
 					suggestions.truncate();
 					suggestions.hide();
