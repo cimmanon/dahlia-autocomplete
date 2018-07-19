@@ -249,10 +249,10 @@ var dahliaAutocomplete = function() {
 				if (key != keyUp && key != keyDown && key != keyEsc && key != keyTab && key != keyEnter) {
 					var val = e.target.value;
 
-						if (val != lastVal) {
-							lastVal = val;
-							processForm(config.delay);
-						}
+					if (val != lastVal) {
+						lastVal = val;
+						processForm(config.delay);
+					}
 				}
 			}
 		}
