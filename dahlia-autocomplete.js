@@ -30,7 +30,7 @@ var dahliaAutocomplete = function() {
 
 		var configDefaults =
 			{ 'target': elem
-			, 'delay': 150
+			, 'delay': 400
 			, 'minlength': 2
 			, 'method': 'GET'
 			, 'action': elem.getAttribute('data-autocomplete-action')
